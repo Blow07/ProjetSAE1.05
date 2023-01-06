@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 fichier=open("Dumpfile.txt","r")
 texte=fichier.readlines()
+fichier.close()
 for _ in range(len(texte)):
     for i in range(len(texte)):
         if texte[i].startswith("\t"):
