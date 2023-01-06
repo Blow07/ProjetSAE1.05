@@ -57,7 +57,7 @@ for i in range(len(resultat)):
         j+=1
   
    
-
+fichier.close()
 
 f = open('r107.csv', 'w')
 ligneEntete = ";".join(chaine) + "\n"
