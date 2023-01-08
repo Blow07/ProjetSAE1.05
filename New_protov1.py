@@ -21,7 +21,7 @@ longueur=len(texte)
     
 print(f"{longueur=}")
 
-resultat = [[""] * 21 for _ in range(longueur) ]
+resultat = [[""] * 1 for _ in range(longueur) ]
 
 def cherchepour(chaine):
     global valeur,tab_of_event
@@ -33,27 +33,77 @@ def cherchepour(chaine):
     return valeur
 
 
-colonne=["TIME","IPSRC","","IPDST","FLAGS","SEQ","ACK",
+colonne=["TIME","IPSRC","IPDST","FLAGS","SEQ","ACK",
         "WIN","OPTIONS","LENGTH",]
+
+parameters=["IP",">","Flags","seq","ack","win","options","length"]
 
 print(texte)
 j=0
-for i in range(longueur-1):
+for i in range(longueur):
     tes=texte[i].split()
-    print(tes)
-    for j in range(len(tes)):
-       resultat[i][j]=tes[j]
-    j=0
+    
+    resultat[i][0]=tes[0]
+    if ("IP" in tes)==True:
+        indice_value=tes.index("IP")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    if (">" in tes)==True:
+        indice_value=tes.index(">")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    if ("Flags" in tes)==True:
+        indice_value=tes.index("Flags")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    if ("seq" in tes)==True:
+        indice_value=tes.index("seq")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    if ("ack" in tes)==True:
+        indice_value=tes.index("ack")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    if ("win" in tes)==True:
+        indice_value=tes.index("win")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    if ("options" in tes)==True:
+        indice_value=tes.index("options")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    if ("length" in tes)==True:
+        indice_value=tes.index("length")
+        resultat[i].append(tes[indice_value+1])
+    else:
+        resultat[i].append("Vide")
+    
+    
+        
+        
    
       
-print(resultat)  
-for i in range(longueur-1):
-    resultat[i].remove('win')
+
 print(resultat)
 
+f = open('TheFichier.csv', 'w')
+ligneEntete = ";".join(colonne) + "\n"
+f.write(ligneEntete)
+for valeur in resultat:
+     ligne = ";".join(valeur) + "\n"
+     f.write(ligne)
+f.close() 
 
-""" 
 
+
+"""
 test=texte[0].split()
 to_remove=[1,2,3,4,5,6,7,12]
 to_fuse=[7,7,7,7,7] 
@@ -69,9 +119,9 @@ for i in to_fuse:
     element_to_fuse.append(test.pop(i))
 test.insert(-1,"-".join(element_to_fuse))
 print(test)
-
-
 """
+
+
 
 
 
