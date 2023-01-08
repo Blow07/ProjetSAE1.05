@@ -4,14 +4,15 @@ Created on Fri Jan  6 23:17:51 2023
 
 @author: boyem
 """
-import markdown
-import datetime
-import numpy as np
-import matplotlib.pyplot as plt
+
 fichier=open("Dumpfile.txt","r")
+print("hello")
+
 texte=fichier.readlines()
 fichier.close()
-for _ in range(len(texte)):
+first_len=len(texte)
+
+for _ in range(first_len):
     for i in range(len(texte)):
         if texte[i].startswith("\t"):
             del texte[i]
@@ -19,7 +20,7 @@ for _ in range(len(texte)):
 longueur=len(texte)
 
     
-print(f"{longueur=}")
+
 
 resultat = [[""] * 1 for _ in range(longueur) ]
 
@@ -44,52 +45,13 @@ for i in range(longueur):
     tes=texte[i].split()
     
     resultat[i][0]=tes[0]
-    if ("IP" in tes)==True:
-        indice_value=tes.index("IP")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
-    if (">" in tes)==True:
-        indice_value=tes.index(">")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
-    if ("Flags" in tes)==True:
-        indice_value=tes.index("Flags")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
-    if ("seq" in tes)==True:
-        indice_value=tes.index("seq")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
-    if ("ack" in tes)==True:
-        indice_value=tes.index("ack")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
-    if ("win" in tes)==True:
-        indice_value=tes.index("win")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
-    if ("options" in tes)==True:
-        indice_value=tes.index("options")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
-    if ("length" in tes)==True:
-        indice_value=tes.index("length")
-        resultat[i].append(tes[indice_value+1])
-    else:
-        resultat[i].append("Vide")
+    for chaine in parameters:
+        if (chaine in tes)==True:
+            indice_value=tes.index(chaine)
+            resultat[i].append(tes[indice_value+1])
+        else:
+            resultat[i].append("Vide")
     
-    
-        
-        
-   
-      
 
 print(resultat)
 
@@ -102,7 +64,7 @@ for valeur in resultat:
 f.close() 
 
 
-
+print(f"{longueur=}")
 """
 test=texte[0].split()
 to_remove=[1,2,3,4,5,6,7,12]
