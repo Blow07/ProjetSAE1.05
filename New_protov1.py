@@ -6,7 +6,7 @@ Created on Fri Jan  6 23:17:51 2023
 """
 
 fichier=open("Dumpfile.txt","r")
-print("hello")
+
 
 texte=fichier.readlines()
 fichier.close()
@@ -18,7 +18,7 @@ for _ in range(first_len):
             del texte[i]
             break
 longueur=len(texte)
-
+print("hello")
     
 
 
@@ -42,7 +42,7 @@ parameters=["IP",">","Flags","seq","ack","win","options","length"]
 print(texte)
 j=0
 for i in range(longueur):
-    tes=texte[i].split()
+    tes=texte[i].split(" ")
     
     resultat[i][0]=tes[0]
     for chaine in parameters:
