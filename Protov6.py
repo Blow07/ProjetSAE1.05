@@ -6,8 +6,6 @@ Created on Mon Dec 26 14:34:51 2022
 """
 import markdown
 import matplotlib.pyplot as plt
-import datetime
-import numpy
 
 fichier=open("Calendar.txt","r")
 texte=fichier.read()
