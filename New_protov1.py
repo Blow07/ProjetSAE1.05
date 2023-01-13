@@ -22,29 +22,33 @@ longueur=len(texte)
 
 
 resultat = [[""] * 1 for _ in range(longueur) ]
-print(resultat)
 
 
-colonne=["TIME","IPSRC","IPDST","FLAGS","SEQ","ACK",
-        "WIN","OPTIONS","LENGTH",]
 
-parameters=["IP",">","Flags","seq","ack","win","options","length"]
+colonne=["TIME","IPSRC","IPDST","ICMP","FLAGS","SEQ","ACK",
+        "WIN","OPTIONS","LENGTH"]
 
-print(texte)
+parameters=["IP",">","ICMP","Flags","seq","ack","win","options","length"]
+
+
 j=0
 for i in range(longueur):
     tes=texte[i].split(" ")
     
     resultat[i][0]=tes[0]
     for chaine in parameters:
-        if (chaine in tes)==True:
+        if (chaine in tes)==True and chaine=="ICMP":
+            indice_value=tes.index(chaine)
+            resultat[i].append(tes[indice_value+2])
+        if (chaine in tes)==True and chaine !="ICMP":
             indice_value=tes.index(chaine)
             resultat[i].append(tes[indice_value+1])
         else:
-            resultat[i].append("Vide")
+            resultat[i].append("Vide")  
     
 
-print(resultat)
+
+"""
 
 f = open('TheFichiertest.csv', 'w')
 ligneEntete = ";".join(colonne) + "\n"
@@ -53,9 +57,6 @@ for valeur in resultat:
      ligne = ";".join(valeur) + "\n"
      f.write(ligne)
 f.close() 
-
-
-print(f"{longueur=}")
 
 
 chaine_adresse=[]
@@ -74,6 +75,7 @@ for i in range(len(resultat)):
         
     elif resultat[i][2].startswith("BP"):
         a,b=resultat[i][1].split("."),resultat[i][2].split(".")
+        print(a,b)
         chaine= a[0]+a[1]+a[2]+a[3] + "==>" + b[0]
     
     
@@ -89,9 +91,6 @@ for element in chaine_adresse:
         chaine_traite.append(element)
         
         
-        
-print(resultat_adresse_nombre)
-        
 
 f = open('Donnes.csv', 'w')
 ligneEntete = ";".join(chaine_adresse) + "\n"
@@ -99,3 +98,4 @@ f.write(ligneEntete)
 ligneEntete = ";".join(resultat_adresse_nombre)
 f.write(ligneEntete)
 f.close()
+"""
