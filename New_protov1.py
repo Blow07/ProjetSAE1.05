@@ -40,15 +40,15 @@ for i in range(longueur):
         if (chaine in tes)==True and chaine=="ICMP":
             indice_value=tes.index(chaine)
             resultat[i].append(tes[indice_value+2])
-        if (chaine in tes)==True and chaine !="ICMP":
+        elif (chaine in tes)==True and chaine !="ICMP":
             indice_value=tes.index(chaine)
             resultat[i].append(tes[indice_value+1])
         else:
             resultat[i].append("Vide")  
     
 
+print(resultat)
 
-"""
 
 f = open('TheFichiertest.csv', 'w')
 ligneEntete = ";".join(colonne) + "\n"
@@ -98,4 +98,3 @@ f.write(ligneEntete)
 ligneEntete = ";".join(resultat_adresse_nombre)
 f.write(ligneEntete)
 f.close()
-"""
