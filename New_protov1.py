@@ -6,7 +6,6 @@ Created on Fri Jan  6 23:17:51 2023
 """
 import matplotlib.pyplot as plt
 
-
 fichier=open("Dumpfiletest.txt","r")
 texte=fichier.readlines()
 fichier.close()
@@ -20,9 +19,7 @@ for _ in range(first_len):
         
 longueur=len(texte)
 
-
 resultat = [[""] * 1 for _ in range(longueur) ]
-
 
 
 colonne=["TIME","IPSRC","IPDST","ICMP","FLAGS","SEQ","ACK",
@@ -44,57 +41,58 @@ for i in range(longueur):
             indice_value=tes.index(chaine)
             resultat[i].append(tes[indice_value+1])
         else:
-            resultat[i].append("Vide")  
-    
-
-print(resultat)
-
-
-f = open('TheFichiertest.csv', 'w')
-ligneEntete = ";".join(colonne) + "\n"
-f.write(ligneEntete)
-for valeur in resultat:
-     ligne = ";".join(valeur) + "\n"
-     f.write(ligne)
-f.close() 
-
+            resultat[i].append("Vide")    
 
 chaine_adresse=[]
 resultat_adresse_tout=[]
 resultat_adresse_nombre=[]
 chaine_traite=[]
 
-
 for i in range(len(resultat)):
     
     if resultat[i][1].startswith("BP"):
         a,b=resultat[i][1].split("."),resultat[i][2].split(".")
         chaine= a[0] + "==>" + b[0]+b[1]+b[2]+b[3]
-        
-        
+             
         
     elif resultat[i][2].startswith("BP"):
         a,b=resultat[i][1].split("."),resultat[i][2].split(".")
-        print(a,b)
         chaine= a[0]+a[1]+a[2]+a[3] + "==>" + b[0]
-    
-    
+      
     
     resultat_adresse_tout.append(chaine)
     if chaine not in chaine_adresse:
         chaine_adresse.append(chaine)
-        
-        
+               
 for element in chaine_adresse:
     if element not in chaine_traite:
         resultat_adresse_nombre.append(str(resultat_adresse_tout.count(element)))
         chaine_traite.append(element)
         
-        
 
-f = open('Donnes.csv', 'w')
-ligneEntete = ";".join(chaine_adresse) + "\n"
+Entetemax=colonne + chaine_adresse
+Entetemax.insert(len(colonne), "------")
+
+
+# Cette manipulation c'est juste pour enlever un \n à la fin de la liste
+wrap=resultat[0][-1].split()
+resultat[0][-1]=wrap[0]
+
+
+
+premiere_ligne_csv=resultat[0]+resultat_adresse_nombre
+premiere_ligne_csv.insert(len(resultat[0]), "------")
+
+flag=0        
+f = open('TheFichiertest_pour_macro.csv', 'w')
+ligneEntete = ";".join(Entetemax) + "\n"
 f.write(ligneEntete)
-ligneEntete = ";".join(resultat_adresse_nombre)
-f.write(ligneEntete)
+for valeur in resultat:
+    if flag==0:
+        ligne = ";".join(premiere_ligne_csv) + "\n"
+        f.write(ligne)
+        flag=1
+    else:
+        ligne = ";".join(valeur) + "\n"
+        f.write(ligne)
 f.close()
