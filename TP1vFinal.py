@@ -4,7 +4,7 @@ Created on Thu Dec 15 10:28:55 2022
 
 @author: boyem
 """
-
+import markdown
 import matplotlib.pyplot as plt
 fichier=open("Calendar.txt","r")
 texte=fichier.read()
@@ -101,9 +101,6 @@ for i in range(len(resultat)):
         
         
         
-        
-
-
 labels = ["Septembre", "Octobre", "Novembre", "Décembre"]
 sizes = [nb_tp_sept, nb_tp_oct, nb_tp_nov, nb_tp_dec]
 colors = ["yellowgreen", "gold", "lightskyblue", "lightcoral"]
@@ -112,3 +109,17 @@ autopct="%1.1f%%", shadow=True, startangle=90)
 plt.axis("equal")
 plt.savefig("PieChart01.png")
 plt.show()
+
+fm= open("test.md","w+")
+fm.write(""" # Extraction des donnees
+         ![texte
+alternatif de l’image](../ProjetSAE1.05/PieChart01.png)""")
+fm.seek(0)
+text=fm.read()
+html=markdown.markdown(text)
+html=html
+print(html)
+fh= open("Picnic.html","w+")
+fh.write(html)
+fm.close()
+fh.close()
