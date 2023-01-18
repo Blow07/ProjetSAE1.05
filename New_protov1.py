@@ -125,4 +125,43 @@ for valeur in resultat:
         flag+=1
 f.close()
 
+# Création des graphiques
+
+labels = chaine_adresse
+sizes = resultat_adresse_nombre
+plt.pie(sizes, labels=labels, 
+autopct="%1.1f%%", shadow=True, startangle=90)
+plt.axis("equal")
+plt.legend()
+plt.savefig("PieChart01.png")
+plt.show()
+
+
+
+x = []
+for i in range(len(flag_type)):
+    x.append(i+1)
+y = flag_nombre
+labels = flag_type
+plt.bar(x,y, tick_label = labels,
+width = 0.8)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('My bar chart!')
+plt.savefig("PieChart02.png")
+plt.show()
+
+
 # Importation vers markdown
+fm= open("test.md","w+")
+fm.write(""" # Extraction des donnees
+         ![img1](../ProjetSAE1.05/PieChart01.png)
+ ![img2](../ProjetSAE1.05/PieChart02.png)""")
+fm.seek(0)
+text=fm.read()
+html=markdown.markdown(text)
+print(html)
+fh= open("Picnic.html","w+")
+fh.write(html)
+fm.close()
+fh.close()
