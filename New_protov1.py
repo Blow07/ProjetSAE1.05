@@ -11,18 +11,20 @@ fichier=open("Dumpfile.txt","r")
 texte=fichier.readlines()
 fichier.close()
 first_len=len(texte)
-second_len=first_len
 
 for _ in range(first_len):
-    for i in range(second_len):
+    for i in range(len(texte)):
         if texte[i].startswith("\t"):
             del texte[i]
-            second_len-=1
             break
         
+<<<<<<< HEAD
 longueur=second_len
 
         
+=======
+longueur=len(texte)
+>>>>>>> 3808bd3486a8192238c201a5b0259ec9f83b2507
 
 resultat = [[""] * 1 for _ in range(longueur) ]
 
@@ -134,7 +136,11 @@ neuviéme_ligne.insert(len(colonne), "")
 
 # Extraction des données dans le fichier csv 
 flag=0      
+<<<<<<< HEAD
 f = open('CSV_file_vFINAL.csv', 'w')
+=======
+f = open('TheFichiertest_pour_macro.csv', 'w')
+>>>>>>> 3808bd3486a8192238c201a5b0259ec9f83b2507
 ligneEntete = ";".join(Entetemax) + "\n"
 f.write(ligneEntete)
 for valeur in resultat:
