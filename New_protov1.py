@@ -11,16 +11,14 @@ fichier=open("Dumpfiletest.txt","r")
 texte=fichier.readlines()
 fichier.close()
 first_len=len(texte)
-second_len=first_len
+
 for _ in range(first_len):
-    for i in range(second_len):
+    for i in range(len(texte)):
         if texte[i].startswith("\t"):
             del texte[i]
-            second_len-=1
             break
         
-longueur=second_len
-
+longueur=len(texte)
 
 resultat = [[""] * 1 for _ in range(longueur) ]
 
@@ -117,7 +115,7 @@ for valeur in resultat:
         f.write(ligne)  
         ligne = ";".join(cinquieme_ligne) + "\n"
         f.write(ligne)
-    if flag==0:
+    elif flag==0:
         ligne = ";".join(premiere_ligne_csv) + "\n"
         f.write(ligne)
         flag+=1
