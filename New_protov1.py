@@ -12,7 +12,6 @@ texte=fichier.readlines()
 fichier.close()
 first_len=len(texte)
 second_len=first_len
-
 for _ in range(first_len):
     for i in range(second_len):
         if texte[i].startswith("\t"):
@@ -21,9 +20,7 @@ for _ in range(first_len):
             break
         
 longueur=second_len
-print(f"{longueur}")
-print(texte)
-        
+
 
 resultat = [[""] * 1 for _ in range(longueur) ]
 
@@ -111,7 +108,7 @@ Entete_ligne_quatre= [ "" for _ in range(11)] + flag_type
 
 # Extraction des données dans le fichier csv 
 flag=0      
-f = open('CSV_file__vEnddev', 'w')
+f = open('TheFichiertest_pour_macro.csv', 'w')
 ligneEntete = ";".join(Entetemax) + "\n"
 f.write(ligneEntete)
 for valeur in resultat:
@@ -120,7 +117,7 @@ for valeur in resultat:
         f.write(ligne)  
         ligne = ";".join(cinquieme_ligne) + "\n"
         f.write(ligne)
-    elif flag==0:
+    if flag==0:
         ligne = ";".join(premiere_ligne_csv) + "\n"
         f.write(ligne)
         flag+=1
