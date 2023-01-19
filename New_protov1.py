@@ -11,14 +11,19 @@ fichier=open("Dumpfiletest.txt","r")
 texte=fichier.readlines()
 fichier.close()
 first_len=len(texte)
+second_len=first_len
 
 for _ in range(first_len):
-    for i in range(len(texte)):
+    for i in range(second_len):
         if texte[i].startswith("\t"):
             del texte[i]
+            second_len-=1
             break
         
-longueur=len(texte)
+longueur=second_len
+print(f"{longueur}")
+print(texte)
+        
 
 resultat = [[""] * 1 for _ in range(longueur) ]
 
@@ -106,7 +111,7 @@ Entete_ligne_quatre= [ "" for _ in range(11)] + flag_type
 
 # Extraction des données dans le fichier csv 
 flag=0      
-f = open('TheFichiertest_pour_macro.csv', 'w')
+f = open('CSV_file__vEnddev', 'w')
 ligneEntete = ";".join(Entetemax) + "\n"
 f.write(ligneEntete)
 for valeur in resultat:
