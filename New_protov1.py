@@ -7,7 +7,7 @@ Created on Fri Jan  6 23:17:51 2023
 import markdown
 import matplotlib.pyplot as plt
 
-fichier=open("Dumpfiletest.txt","r")
+fichier=open("Dumpfile.txt","r")
 texte=fichier.readlines()
 fichier.close()
 first_len=len(texte)
@@ -21,8 +21,7 @@ for _ in range(first_len):
             break
         
 longueur=second_len
-print(f"{longueur}")
-print(texte)
+
         
 
 resultat = [[""] * 1 for _ in range(longueur) ]
@@ -88,8 +87,27 @@ for i in range(len(resultat)):
     flag_traite.append(flags)
 for element in flag_type:
     flag_nombre.append(str(flag_traite.count(element)))
-        
+    
+    
+# Extraction adreesse+ flag
+adresse_flag_traite=[]
+adresse_flag=[]
+adresse_flag_nombre=[]
 
+for i in range(len(resultat)):
+    
+    ad_source=resultat[i][1].split(".")
+    ad_source=ad_source[0]
+    if ad_source+"&"+resultat[i][4] not in adresse_flag:
+        adresse_flag.append(ad_source+"&"+resultat[i][4])
+    adresse_flag_traite.append(ad_source+"&"+resultat[i][4])
+        
+for element in adresse_flag:
+    adresse_flag_nombre.append(str(adresse_flag_traite.count(element)))
+
+    
+   
+        
 # Cette manipulation c'est juste pour enlever un \n à la fin de la liste pour resultat[0] et resultat[4]
 wrap=resultat[0][-1].split()
 resultat[0][-1]=wrap[0]
@@ -97,21 +115,26 @@ wrap=resultat[4][-1].split()
 resultat[4][-1]=wrap[0]
 
 premiere_ligne_csv=resultat[0]+resultat_adresse_nombre
-premiere_ligne_csv.insert(len(colonne), "------")
+premiere_ligne_csv.insert(len(colonne), "")
 
 
 Entetemax=colonne + chaine_adresse
-Entetemax.insert(len(colonne), "------")
+Entetemax.insert(len(colonne), "")
 
 # Cas particulier pour bien positionner le tableau flag
 cinquieme_ligne=resultat[4] + flag_nombre
-cinquieme_ligne.insert(len(colonne), "------")
+cinquieme_ligne.insert(len(colonne), "")
 Entete_ligne_quatre= [ "" for _ in range(11)] + flag_type
+
+
+neuviéme_ligne=resultat[8]+adresse_flag_nombre
+huitiéme_ligne=["" for i in range(11)] + adresse_flag
+neuviéme_ligne.insert(len(colonne), "") 
 
 
 # Extraction des données dans le fichier csv 
 flag=0      
-f = open('CSV_file__vEnddev', 'w')
+f = open('CSV_file_vFINAL.csv', 'w')
 ligneEntete = ";".join(Entetemax) + "\n"
 f.write(ligneEntete)
 for valeur in resultat:
@@ -120,8 +143,14 @@ for valeur in resultat:
         f.write(ligne)  
         ligne = ";".join(cinquieme_ligne) + "\n"
         f.write(ligne)
-    elif flag==0:
+    if flag==0:
         ligne = ";".join(premiere_ligne_csv) + "\n"
+        f.write(ligne)
+        flag+=1
+    if flag==8:
+        ligne = ";".join(huitiéme_ligne) + "\n"
+        f.write(ligne)
+        ligne = ";".join(neuviéme_ligne) + "\n"
         f.write(ligne)
         flag+=1
     else:
@@ -132,6 +161,7 @@ f.close()
 
 # Création des graphiques
 
+# Diagramme circulaire trajets
 labels = chaine_adresse
 sizes = resultat_adresse_nombre
 plt.pie(sizes, labels=labels, 
@@ -142,7 +172,7 @@ plt.savefig("PieChart01.png")
 plt.show()
 
 
-
+# Diagramme à barres flags
 x = []
 for i in range(len(flag_type)):
     x.append(i+1)
@@ -156,17 +186,32 @@ plt.title('My bar chart!')
 plt.savefig("PieChart02.png")
 plt.show()
 
+#Diagramme à barres adresse et flags
+x = []
+for i in range(len(adresse_flag)):
+    x.append(i+1)
+y = adresse_flag_nombre
+labels = adresse_flag
+plt.bar(x,y, tick_label = labels,
+width = 0.8)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('My bar chart!')
+plt.savefig("PieChart03.png")
+plt.show()
+
 
 # Importation vers markdown
 fm= open("test.md","w+")
 fm.write(""" # Extraction des donnees
          ![img1](../ProjetSAE1.05/PieChart01.png)
- ![img2](../ProjetSAE1.05/PieChart02.png)""")
+ ![img2](../ProjetSAE1.05/PieChart02.png)
+ ![img3](../ProjetSAE1.05/PieChart03.png)""")
 fm.seek(0)
 text=fm.read()
 html=markdown.markdown(text)
 print(html)
-fh= open("Picnic.html","w+")
+fh= open("Exportation.html","w+")
 fh.write(html)
 fm.close()
 fh.close()
