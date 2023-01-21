@@ -13,7 +13,7 @@ After you run it, the programm will make some time to extract all the data depen
 
 =================================================================================================================
 
-After the programm is done you will get some file:
+After the programm is done you will get some files:
 -------------------------------------------------
 
 * Markdown file : You can delete it, it was just for making the html file
