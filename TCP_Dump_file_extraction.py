@@ -33,6 +33,7 @@ colonne=["TIME","IPSRC","IPDST","ICMP","FLAGS","SEQ","ACK",
 parameters=["IP",">","ICMP","Flags","seq","ack","win","options","length"]
 
 
+# On split les entetes par des espaces et on récupérer la valeur voulu qui est positionné a l'indice suivant sauf pour icmp qui est un cas particulier.
 j=0
 for i in range(longueur):
     tes=texte[i].split(" ")
@@ -56,6 +57,7 @@ chaine_traite=[]
 
 for i in range(len(resultat)):
     
+    # Pour ce déparasser des ports on utilise un split(".") sauf pour BPlinux
     if resultat[i][1].startswith("BP"):
         a,b=resultat[i][1].split("."),resultat[i][2].split(".")
         chaine= a[0] + "==>" + b[0]+b[1]+b[2]+b[3]
